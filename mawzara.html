@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mawzara — Real-Time Food Security Intelligence for Qatar & the GCC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --maroon:       #7B1229;
+    --maroon-dark:  #5A0D1E;
+    --maroon-mid:   #9A1A35;
+    --maroon-faint: #F9EEF1;
+    --green:        #3D7A4F;
+    --green-bg:     #EAF4EE;
+    --amber:        #C47C14;
+    --amber-bg:     #FEF3E2;
+    --red:          #C0392B;
+    --red-bg:       #FDECEB;
+    --bg:           #F5F3F0;
+    --surface:      #FFFFFF;
+    --border:       #E2DDD8;
+    --text:         #1A1614;
+    --text-muted:   #6B6460;
+    --text-light:   #9E9490;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    background: var(--maroon);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.85em;
+    margin-left: 0.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #fff; }
+
+  .btn-nav {
+    background: rgba(255,255,255,0.15) !important;
+    color: #fff !important;
+    padding: 0.45rem 1.1rem !important;
+    border-radius: 3px !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+  }
+
+  .btn-nav:hover { background: rgba(255,255,255,0.25) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--maroon);
+    padding: 9rem 5% 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  /* wave transition at bottom */
+  .hero-wave {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+    line-height: 0;
+  }
+
+  .hero-wave svg { display: block; width: 100%; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3.5rem;
+    align-items: end;
+    max-width: 1300px;
+  }
+
+  /* left column */
+  .hero-left { padding-bottom: 5rem; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: rgba(255,255,255,0.35);
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero h1 em { font-style: italic; color: rgba(255,255,255,0.55); }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 430px;
+    margin-bottom: 2.4rem;
+    line-height: 1.78;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .btn-primary {
+    background: #fff;
+    color: var(--maroon);
+    padding: 0.85rem 2rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: rgba(255,255,255,0.88); transform: translateY(-2px); }
+
+  .btn-ghost {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+  .hero-stats {
+    display: flex;
+    gap: 0;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 1.2rem 1.4rem;
+    border-right: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-num sup { font-size: 1rem; vertical-align: super; opacity: 0.65; }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    margin-top: 0.35rem;
+    display: block;
+    line-height: 1.4;
+  }
+
+  /* ── HERO RIGHT: shipment board mockup ── */
+  .hero-right {
+    align-self: end;
+    position: relative;
+    /* slides up from bottom so it feels grounded */
+  }
+
+  .hero-mockup {
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: none;
+    box-shadow:
+      0 -8px 40px rgba(0,0,0,0.35),
+      0 0 0 1px rgba(255,255,255,0.06);
+    animation: slideUp 0.7s 0.45s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* mockup top chrome bar */
+  .hm-chrome {
+    background: #2A0710;
+    padding: 0.55rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .hm-chrome-left { display: flex; align-items: center; gap: 0.7rem; }
+  .hm-dots { display: flex; gap: 5px; }
+  .hm-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .hm-dot-r { background: #FF5F57; }
+  .hm-dot-y { background: #FEBC2E; }
+  .hm-dot-g { background: #28C840; }
+  .hm-chrome-title { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+
+  .hm-live { display: flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; color: rgba(255,255,255,0.4); }
+  .hm-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #3D7A4F; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* mockup top bar (maroon) */
+  .hm-topbar {
+    background: #7B1229;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hm-topbar-left { display: flex; align-items: center; gap: 0.6rem; }
+  .hm-logo-mark {
+    width: 20px; height: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+
+  .hm-logo-mark span {
+    background: rgba(255,255,255,0.85);
+    border-radius: 1px;
+  }
+
+  .hm-logo-mark span:nth-child(2),
+  .hm-logo-mark span:nth-child(3) { opacity: 0.4; }
+
+  .hm-topbar-title { font-size: 0.72rem; font-weight: 600; color: #fff; }
+  .hm-topbar-right { display: flex; align-items: center; gap: 0.6rem; }
+
+  .hm-lang {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.65);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.18rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .hm-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 600; color: #fff;
+  }
+
+  /* mockup body */
+  .hm-body {
+    background: #F5F3F0;
+    display: flex;
+  }
+
+  /* sidebar */
+  .hm-sidebar {
+    width: 36px;
+    background: #fff;
+    border-right: 1px solid #E2DDD8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .hm-nav-icon {
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hm-nav-icon.active { background: #F9EEF1; }
+
+  .hm-nav-icon svg {
+    width: 13px; height: 13px;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  .hm-nav-icon.active svg { stroke: #7B1229; }
+  .hm-nav-icon svg { stroke: #9E9490; }
+
+  /* main content */
+  .hm-main { flex: 1; padding: 11px 13px; }
+
+  /* page header row */
+  .hm-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .hm-page-title { font-size: 0.78rem; font-weight: 700; color: #1A1614; }
+  .hm-page-sub   { font-size: 0.62rem; color: #6B6460; margin-top: 1px; }
+
+  .hm-add-btn {
+    background: #7B1229;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  /* stat cards row */
+  .hm-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .hm-stat {
+    background: #fff;
+    border: 1px solid #E2DDD8;
+    border-radius: 4px;
+    padding: 8px 9px;
+  }
+
+  .hm-stat-val { font-size: 1.2rem; font-weight: 700; color: #1A1614; line-height: 1; }
+  .hm-stat-val.green  { color: #3D7A4F; }
+  .hm-stat-val.red    { color: #C0392B; }
+  .hm-stat-val.amber  { color: #C47C14; }
+  .hm-stat-lbl  { font-size: 0.6rem; color: #6B6460; margin-top: 2px; line-height: 1.3; }
+  .hm-stat-sub  { font-size: 0.58rem; margin-top: 2px; }
+  .hm-stat-sub.green { color: #3D7A4F; }
+  .hm-stat-sub.red   { color: #C0392B; }
+
+  /* filter bar */
+  .hm-filters {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 9px;
+    align-items: center;
+  }
+
+  .hm-filter {
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid #E2DDD8;
+    background: #fff;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #6B6460;
+  }
+
+  .hm-filter.active {
+    background: #F9EEF1;
+    border-color: #D4A0B0;
+    color: #7B1229;
+  }
+
+  .hm-search {
+    margin-left: auto;
+    background: #fff;
+    border: 1px solid #E2DDD8;
+    border-radius: 3px;
+    padding: 0.22rem 0.65rem;
+    font-size: 0.6rem;
+    color: #9E9490;
+  }
+
+  /* table */
+  .hm-table-wrap {
+    background: #fff;
+    border: 1px solid #E2DDD8;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .hm-table { width: 100%; border-collapse: collapse; font-size: 0.63rem; }
+
+  .hm-table thead tr { background: #F5F3F0; }
+
+  .hm-table th {
+    padding: 6px 9px;
+    text-align: left;
+    font-weight: 700;
+    color: #9E9490;
+    border-bottom: 1px solid #E2DDD8;
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hm-table td {
+    padding: 7px 9px;
+    border-bottom: 1px solid #E2DDD8;
+    color: #1A1614;
+    vertical-align: middle;
+  }
+
+  .hm-table tr:last-child td { border-bottom: none; }
+  .hm-table tr { transition: background 0.1s; }
+  .hm-table tr:hover td { background: #F9EEF1; }
+  .hm-table tr.row-alert td { background: #FFF8F8; }
+  .hm-table tr.row-warn  td { background: #FFFCF6; }
+
+  .hm-vessel   { font-weight: 700; font-size: 0.65rem; color: #1A1614; }
+  .hm-commodity { font-size: 0.58rem; color: #6B6460; margin-top: 1px; }
+
+  .hm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .hm-badge-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .hm-bg  { background: #EAF4EE; color: #3D7A4F; }
+  .hm-ba  { background: #FEF3E2; color: #C47C14; }
+  .hm-br  { background: #FDECEB; color: #C0392B; }
+  .hm-bb  { background: #E6F1FB; color: #185FA5; }
+
+  .hm-eta-delay { color: #C0392B; font-size: 0.6rem; }
+  .hm-eta-warn  { color: #C47C14; font-size: 0.6rem; }
+
+  /* detail drawer */
+  .hm-drawer {
+    background: #fff;
+    border-top: 1px solid #E2DDD8;
+    padding: 10px 13px;
+  }
+
+  .hm-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .hm-drawer-title { font-size: 0.72rem; font-weight: 700; color: #1A1614; }
+
+  .hm-drawer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .hm-drawer-stat {
+    background: #F5F3F0;
+    border-radius: 4px;
+    padding: 6px 8px;
+  }
+
+  .hm-drawer-val { font-size: 0.72rem; font-weight: 700; color: #1A1614; }
+  .hm-drawer-lbl { font-size: 0.58rem; color: #6B6460; margin-top: 1px; }
+
+  .hm-drawer-actions { display: flex; gap: 6px; }
+
+  .hm-drawer-btn {
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+  }
+
+  .hm-drawer-btn.primary { background: #7B1229; color: #fff; }
+  .hm-drawer-btn.ghost { background: transparent; color: #6B6460; border: 1px solid #E2DDD8; }
+
+  /* ── SHARED ── */
+  section { padding: 6rem 5%; }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 0.9rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 560px;
+  }
+
+  .section-title em { font-style: italic; color: var(--maroon); }
+
+  .section-body {
+    color: var(--text-muted);
+    max-width: 500px;
+    font-size: 0.97rem;
+    line-height: 1.78;
+    margin-bottom: 3rem;
+  }
+
+  /* PROBLEM */
+  .problem { background: var(--bg); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    padding: 2.2rem 1.8rem;
+    transition: background 0.2s;
+  }
+
+  .problem-card:hover { background: var(--maroon-faint); }
+
+  .problem-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #E8D0D6;
+    line-height: 1;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .problem-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+  .problem-card p  { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+  .problem-quote {
+    margin-top: 2.5rem;
+    padding: 1.8rem 2.2rem;
+    border-left: 3px solid var(--maroon);
+    background: var(--surface);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .problem-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 0.7rem;
+  }
+
+  .problem-quote cite {
+    font-size: 0.73rem;
+    color: var(--text-light);
+    font-style: normal;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* SOLUTION */
+  .solution { background: var(--surface); }
+
+  .solution-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .features-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .feature-item {
+    background: var(--surface);
+    padding: 1.6rem;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    transition: background 0.2s;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-item:last-child { border-bottom: none; }
+  .feature-item:hover { background: var(--maroon-faint); }
+
+  .feature-icon {
+    width: 36px; height: 36px;
+    background: var(--maroon-faint);
+    border: 1px solid #E8D0D6;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon svg {
+    width: 18px; height: 18px;
+    stroke: var(--maroon);
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  .feature-item h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+  .feature-item p  { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+  .user-types { display: flex; gap: 0.7rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  .user-badge {
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg);
+  }
+
+  .user-badge.active {
+    border-color: var(--maroon);
+    color: var(--maroon);
+    background: var(--maroon-faint);
+  }
+
+  /* DASHBOARD PREVIEW */
+  .preview-section { background: var(--bg); }
+
+  .dashboard-mockup {
+    margin-top: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(123,18,41,0.07);
+  }
+
+  .mockup-header {
+    background: var(--maroon);
+    padding: 0.85rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mockup-header-title { font-size: 0.82rem; font-weight: 600; color: #fff; }
+  .mockup-lang { font-size: 0.75rem; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.3); padding: 0.2rem 0.6rem; border-radius: 3px; }
+  .mockup-body { background: var(--bg); padding: 1.5rem; }
+
+  .mockup-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+
+  .mockup-kpi { background: var(--surface); padding: 1rem 1.1rem; }
+
+  .mockup-kpi-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .mockup-kpi-num.alert { color: var(--red); }
+  .mockup-kpi-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.35; }
+  .mockup-kpi-sub { font-size: 0.68rem; margin-top: 0.2rem; }
+  .mockup-kpi-sub.up    { color: var(--green); }
+  .mockup-kpi-sub.alert { color: var(--red); }
+
+  .mockup-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 1.2rem; }
+
+  .mockup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1.2rem;
+  }
+
+  .mockup-card-title { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+
+  .reserve-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .reserve-label { font-size: 0.72rem; color: var(--text-muted); width: 110px; flex-shrink: 0; }
+  .reserve-bar-wrap { flex: 1; height: 7px; background: #ECDDD9; border-radius: 4px; overflow: hidden; }
+  .reserve-bar { height: 100%; border-radius: 4px; }
+  .bar-green { background: var(--green); }
+  .bar-amber { background: var(--amber); }
+  .bar-red   { background: var(--red); }
+  .reserve-days { font-size: 0.72rem; font-weight: 700; width: 40px; text-align: right; flex-shrink: 0; }
+  .days-green { color: var(--green); }
+  .days-amber { color: var(--amber); }
+  .days-red   { color: var(--red); }
+
+  .alert-card { padding: 0.7rem 0.85rem; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.72rem; }
+  .alert-card.red   { background: var(--red-bg);   border-left: 3px solid var(--red); }
+  .alert-card.amber { background: var(--amber-bg); border-left: 3px solid var(--amber); }
+  .alert-card strong { display: block; font-weight: 700; margin-bottom: 0.2rem; font-size: 0.75rem; }
+  .alert-card.red   strong { color: var(--red); }
+  .alert-card.amber strong { color: var(--amber); }
+  .alert-card span { color: var(--text-muted); }
+
+  /* ADVANTAGE */
+  .advantage { background: var(--maroon); }
+  .advantage .section-eyebrow { color: rgba(255,255,255,0.45); }
+  .advantage .section-title   { color: #fff; }
+  .advantage .section-title em { color: rgba(255,255,255,0.5); }
+  .advantage .section-body    { color: rgba(255,255,255,0.5); }
+
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+  .adv-card { background: var(--maroon); padding: 2rem 1.6rem; transition: background 0.2s; }
+  .adv-card:hover { background: var(--maroon-dark); }
+  .adv-card.dim { background: rgba(90,13,30,0.5); }
+  .adv-card.dim:hover { background: rgba(90,13,30,0.7); }
+
+  .adv-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.5); margin-bottom: 1.1rem; }
+  .adv-card.dim .adv-dot { background: rgba(255,255,255,0.18); }
+
+  .adv-card h4 { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  .adv-card.dim h4 { color: rgba(255,255,255,0.35); }
+  .adv-card p { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .adv-card.dim p { color: rgba(255,255,255,0.22); }
+
+  /* WHY NOW */
+  .whynow { background: var(--surface); }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+    max-width: 640px;
+    border-left: 2px solid var(--border);
+    padding-left: 2.5rem;
+  }
+
+  .timeline-item { position: relative; padding-bottom: 2.5rem; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.69rem; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--maroon);
+    border: 2px solid var(--surface);
+    outline: 1px solid var(--maroon);
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-year { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--maroon); margin-bottom: 0.4rem; }
+  .timeline-item h4 { font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+  .timeline-item p  { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* CTA */
+  .cta-section { background: var(--bg); padding: 6rem 5%; text-align: center; }
+  .cta-section .section-title { margin: 0 auto 0.8rem; }
+  .cta-section .section-body  { margin: 0 auto 2.5rem; }
+
+  .cta-form {
+    display: flex;
+    max-width: 440px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .cta-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 0.85rem 1.2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+  }
+
+  .cta-form input::placeholder { color: var(--text-light); }
+
+  .cta-form button {
+    background: var(--maroon);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .cta-form button:hover { background: var(--maroon-dark); }
+  .cta-note { font-size: 0.77rem; color: var(--text-light); margin-top: 1rem; }
+  .cta-note a { color: var(--maroon); text-decoration: none; }
+
+  /* FOOTER */
+  footer {
+    background: var(--maroon-dark);
+    padding: 2.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
+  .footer-logo span { color: rgba(255,255,255,0.38); font-style: italic; font-weight: 400; font-size: 0.85em; margin-left: 0.35rem; }
+  .footer-tagline { font-size: 0.73rem; color: rgba(255,255,255,0.38); margin-top: 0.25rem; letter-spacing: 0.06em; }
+  .footer-right p { font-size: 0.73rem; color: rgba(255,255,255,0.35); line-height: 1.7; text-align: right; }
+  .footer-right a { color: rgba(255,255,255,0.55); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.5s ease both; }
+  .hero h1      { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-sub     { animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-actions { animation: fadeUp 0.5s 0.3s ease both; }
+  .hero-stats   { animation: fadeUp 0.5s 0.4s ease both; }
+
+  /* ── HAMBURGER ── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0 10px;
+    flex-shrink: 0;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: #fff;
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: var(--maroon-dark);
+    z-index: 99;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-drawer.open { max-height: 400px; }
+  .nav-drawer ul { list-style: none; padding: 0.75rem 0 1.5rem; }
+  .nav-drawer ul li a {
+    display: block;
+    padding: 0.9rem 6%;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-drawer ul li:last-child a { border-bottom: none; }
+  .nav-drawer ul li a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .nav-drawer .btn-drawer {
+    display: block;
+    margin: 1rem 6% 0;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    border-radius: 3px;
+    text-align: center;
+    color: #fff !important;
+    background: rgba(255,255,255,0.12) !important;
+  }
+  .nav-drawer .btn-drawer:hover { background: rgba(255,255,255,0.22) !important; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-toggle { display: flex; }
+    .nav-links  { display: none; }
+    .nav-drawer { display: block; }
+
+    .hero { padding: 7rem 5% 0; }
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
+    .hero-left  { padding-bottom: 3rem; }
+    .hero-right { display: none; }
+    .hero h1    { font-size: clamp(2rem, 7vw, 3rem); }
+    .hero-sub   { font-size: 0.95rem; max-width: 100%; }
+    .hero-stats { flex-direction: column; }
+    .stat-item  { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .stat-item:last-child { border-bottom: none; }
+
+    .solution-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .section-title   { max-width: 100%; }
+    .section-body    { max-width: 100%; }
+
+    .mockup-kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .mockup-grid    { grid-template-columns: 1fr; }
+
+    .adv-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .cta-form { flex-direction: column; }
+    .cta-form button { border-top: 1px solid rgba(0,0,0,0.08); }
+
+    footer { flex-direction: column; align-items: flex-start; }
+    .footer-right p { text-align: left; }
+
+    section { padding: 4rem 5%; }
+    .cta-section { padding: 4rem 5%; }
+  }
+
+  @media (max-width: 540px) {
+    .hero-stats { flex-direction: row; flex-wrap: wrap; }
+    .stat-item  { flex: 1 1 45%; }
+    .adv-grid   { grid-template-columns: 1fr; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .hero h1    { font-size: 1.9rem; }
+    .stat-num   { font-size: 2rem; }
+    .mockup-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Mawzara <span>مَوزَرة</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#preview">Dashboard</a></li>
+    <li><a href="#contact" class="btn-nav">Request Demo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- Left: copy -->
+    <div class="hero-left">
+      <p class="hero-eyebrow">Qatar &amp; GCC Food Security Intelligence</p>
+      <h1>Qatar imports its food.<br><em>Now it can see it coming.</em></h1>
+      <p class="hero-sub">Mawzara is a bilingual SaaS platform giving Qatar's Ministry of Commerce and private food importers real-time supply chain visibility — from port of origin to Hamad Port.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Request a Demo</a>
+        <a href="#solution" class="btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">90<sup>%</sup></span>
+          <span class="stat-label">of Qatar's food is imported</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Real-time GCC platforms exist</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">6<sup>×</sup></span>
+          <span class="stat-label">GCC market vs Qatar alone</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Importer Shipment Board mockup -->
+    <div class="hero-right">
+      <div class="hero-mockup">
+
+        <!-- Browser chrome -->
+        <div class="hm-chrome">
+          <div class="hm-chrome-left">
+            <div class="hm-dots">
+              <div class="hm-dot hm-dot-r"></div>
+              <div class="hm-dot hm-dot-y"></div>
+              <div class="hm-dot hm-dot-g"></div>
+            </div>
+            <span class="hm-chrome-title">Al Meera Consumer Goods — Shipment Board</span>
+          </div>
+          <div class="hm-live">
+            <div class="hm-live-dot"></div>
+            Live
+          </div>
+        </div>
+
+        <!-- App topbar -->
+        <div class="hm-topbar">
+          <div class="hm-topbar-left">
+            <div class="hm-logo-mark">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <span class="hm-topbar-title">Mawzara — Inbound Shipments</span>
+          </div>
+          <div class="hm-topbar-right">
+            <span class="hm-lang">العربية</span>
+            <div class="hm-avatar">AM</div>
+          </div>
+        </div>
+
+        <!-- App body -->
+        <div class="hm-body">
+
+          <!-- Sidebar -->
+          <div class="hm-sidebar">
+            <div class="hm-nav-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </div>
+            <div class="hm-nav-icon active">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="hm-nav-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="hm-nav-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+          </div>
+
+          <!-- Main -->
+          <div class="hm-main">
+
+            <!-- Page header -->
+            <div class="hm-page-header">
+              <div>
+                <div class="hm-page-title">Inbound shipments</div>
+                <div class="hm-page-sub">Sunday, 10 May 2026 &nbsp;·&nbsp; 11 active shipments</div>
+              </div>
+              <button class="hm-add-btn">+ Add shipment</button>
+            </div>
+
+            <!-- Stat cards -->
+            <div class="hm-stats">
+              <div class="hm-stat">
+                <div class="hm-stat-val">11</div>
+                <div class="hm-stat-lbl">In transit</div>
+                <div class="hm-stat-sub">5 origins</div>
+              </div>
+              <div class="hm-stat">
+                <div class="hm-stat-val green">7</div>
+                <div class="hm-stat-lbl">On time</div>
+                <div class="hm-stat-sub green">64%</div>
+              </div>
+              <div class="hm-stat">
+                <div class="hm-stat-val red">3</div>
+                <div class="hm-stat-lbl">Delayed</div>
+                <div class="hm-stat-sub red">↑ filter</div>
+              </div>
+              <div class="hm-stat">
+                <div class="hm-stat-val amber">2</div>
+                <div class="hm-stat-lbl">This week</div>
+                <div class="hm-stat-sub">May 10–16</div>
+              </div>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="hm-filters">
+              <div class="hm-filter active">All</div>
+              <div class="hm-filter">Delayed</div>
+              <div class="hm-filter">On time</div>
+              <div class="hm-filter">This week</div>
+              <div class="hm-search">🔍 Search vessel…</div>
+            </div>
+
+            <!-- Table -->
+            <div class="hm-table-wrap">
+              <table class="hm-table">
+                <thead>
+                  <tr>
+                    <th>Vessel / Commodity</th>
+                    <th>Origin</th>
+                    <th>ETA</th>
+                    <th>Volume</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="hm-vessel">MSC Beatrice</div>
+                      <div class="hm-commodity">Grains &amp; cereals</div>
+                    </td>
+                    <td>🇳🇱 Rotterdam</td>
+                    <td>May 12</td>
+                    <td>2,400 MT</td>
+                    <td><span class="hm-badge hm-bg"><span class="hm-badge-dot" style="background:#3D7A4F"></span>On time</span></td>
+                  </tr>
+                  <tr class="row-alert">
+                    <td>
+                      <div class="hm-vessel">Maersk Karachi</div>
+                      <div class="hm-commodity" style="color:#C0392B">Protein &amp; meat</div>
+                    </td>
+                    <td>🇵🇰 Karachi</td>
+                    <td>
+                      <div class="hm-eta-delay">May 17 +4d ⚠</div>
+                    </td>
+                    <td>980 MT</td>
+                    <td><span class="hm-badge hm-br"><span class="hm-badge-dot" style="background:#C0392B"></span>Delayed</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="hm-vessel">CMA CGM Qatar</div>
+                      <div class="hm-commodity">Dairy products</div>
+                    </td>
+                    <td>🇦🇪 Jebel Ali</td>
+                    <td><span class="hm-badge hm-bb" style="padding:1px 5px;font-size:0.57rem;">Today</span></td>
+                    <td>1,100 MT</td>
+                    <td><span class="hm-badge hm-bg"><span class="hm-badge-dot" style="background:#3D7A4F"></span>On time</span></td>
+                  </tr>
+                  <tr class="row-warn">
+                    <td>
+                      <div class="hm-vessel">Ever Gentle</div>
+                      <div class="hm-commodity">Sugar &amp; edible oils</div>
+                    </td>
+                    <td>🇸🇬 Singapore</td>
+                    <td>
+                      <div class="hm-eta-warn">May 15 +1d</div>
+                    </td>
+                    <td>3,200 MT</td>
+                    <td><span class="hm-badge hm-ba"><span class="hm-badge-dot" style="background:#C47C14"></span>+1d delay</span></td>
+                  </tr>
+                  <tr class="row-alert">
+                    <td>
+                      <div class="hm-vessel">Hansa Stavanger</div>
+                      <div class="hm-commodity" style="color:#C0392B">Protein &amp; meat</div>
+                    </td>
+                    <td>🇮🇳 Nhava Sheva</td>
+                    <td>
+                      <div class="hm-eta-delay">May 19 +3d ⚠</div>
+                    </td>
+                    <td>760 MT</td>
+                    <td><span class="hm-badge hm-br"><span class="hm-badge-dot" style="background:#C0392B"></span>Delayed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Detail drawer — Maersk Karachi selected -->
+            <div class="hm-drawer">
+              <div class="hm-drawer-header">
+                <div class="hm-drawer-title">Maersk Karachi — Protein &amp; meat</div>
+                <span style="font-size:0.6rem;color:#C0392B;font-weight:700;background:#FDECEB;padding:2px 7px;border-radius:3px;">DELAYED +4 DAYS</span>
+              </div>
+              <div class="hm-drawer-grid">
+                <div class="hm-drawer-stat">
+                  <div class="hm-drawer-val">🇵🇰 Karachi</div>
+                  <div class="hm-drawer-lbl">Origin port</div>
+                </div>
+                <div class="hm-drawer-stat">
+                  <div class="hm-drawer-val">May 17</div>
+                  <div class="hm-drawer-lbl">Revised ETA</div>
+                </div>
+                <div class="hm-drawer-stat">
+                  <div class="hm-drawer-val">980 MT</div>
+                  <div class="hm-drawer-lbl">Volume</div>
+                </div>
+                <div class="hm-drawer-stat">
+                  <div class="hm-drawer-val">Maersk</div>
+                  <div class="hm-drawer-lbl">Shipping line</div>
+                </div>
+              </div>
+              <div class="hm-drawer-actions">
+                <button class="hm-drawer-btn primary">🔔 Set alert</button>
+                <button class="hm-drawer-btn ghost">↓ Export details</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- smooth wave into page bg -->
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,54 L0,28 Q180,0 360,18 Q540,36 720,20 Q900,4 1080,22 Q1260,40 1440,16 L1440,54 Z" fill="#F5F3F0"/>
+    </svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <p class="section-eyebrow">The Problem</p>
+  <h2 class="section-title">A blind spot at the heart of <em>national resilience.</em></h2>
+  <p class="section-body">The 2017 blockade exposed what insiders already knew: Qatar's food supply chain was invisible. That gap remains open in 2026.</p>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="problem-num">01</span>
+      <h3>No live shipment visibility</h3>
+      <p>The 2–6 week window from port of origin to Hamad Port is completely blind. Ministries and importers find out about delays when ships don't arrive.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-num">02</span>
+      <h3>Reserve tracking is manual</h3>
+      <p>Days-of-cover calculations are done in spreadsheets. No automated alerts when a food category drops below threshold. TASMU tracks what's landed — not what's coming.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-num">03</span>
+      <h3>Supplier concentration untracked</h3>
+      <p>78% of Qatar's rice comes from a single country. No platform flags this. The 2017 blockade happened partly because these blind spots went undetected.</p>
+    </div>
+  </div>
+
+  <div class="problem-quote">
+    <p>"We find out about delays when the vessel doesn't show up."</p>
+    <cite>— Food importer, Doha (user interview)</cite>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="solution-layout">
+    <div>
+      <p class="section-eyebrow">The Solution</p>
+      <h2 class="section-title">One platform.<br><em>Complete visibility.</em></h2>
+      <p class="section-body">A bilingual Arabic / English SaaS platform built for two users — the Ministry of Commerce and private importers — with one shared goal: knowing what's coming before it arrives.</p>
+      <div class="user-types">
+        <span class="user-badge active">Ministry (MOCI)</span>
+        <span class="user-badge active">Food Importers</span>
+        <span class="user-badge active">Arabic RTL First</span>
+      </div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+        </div>
+        <div>
+          <h4>Live shipment tracking</h4>
+          <p>Port-to-warehouse visibility via Maersk, MSC, and CMA CGM APIs. Real-time vessel position and ETA updates.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div>
+          <h4>Reserve dashboard</h4>
+          <p>Days-of-cover by food category with automated SMS + email threshold alerts for MOCI and importers.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h4>Supplier risk scoring</h4>
+          <p>Concentration flags, geopolitical risk index, and diversification scoring. Know before the news does.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div>
+          <h4>Automated alerts</h4>
+          <p>Policy-level alerts for MOCI, operational delay alerts for importers — no spreadsheets, no surprises.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview-section" id="preview">
+  <p class="section-eyebrow">Product Preview</p>
+  <h2 class="section-title">The MOCI dashboard,<br><em>live and in motion.</em></h2>
+  <p class="section-body">A snapshot of the national food security overview that ministry officials see every morning — real data, real alerts, real decisions.</p>
+
+  <div class="dashboard-mockup">
+    <div class="mockup-header">
+      <span class="mockup-header-title">Qatar Food Security Platform</span>
+      <span class="mockup-lang">العربية</span>
+    </div>
+    <div class="mockup-body">
+      <div class="mockup-kpi-row">
+        <div class="mockup-kpi">
+          <div class="mockup-kpi-num">34</div>
+          <div class="mockup-kpi-label">Avg. days of cover</div>
+          <div class="mockup-kpi-sub up">▲ +2 vs last week</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="mockup-kpi-num">47</div>
+          <div class="mockup-kpi-label">Active shipments<br>12 ports of origin</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="mockup-kpi-num alert">2</div>
+          <div class="mockup-kpi-label">Active alerts</div>
+          <div class="mockup-kpi-sub alert">Tap to view ↗</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="mockup-kpi-num">18</div>
+          <div class="mockup-kpi-label">Importers tracked<br>All reporting</div>
+        </div>
+      </div>
+      <div class="mockup-grid">
+        <div class="mockup-card">
+          <div class="mockup-card-title">Strategic reserve — days of cover by category</div>
+          <div class="reserve-row">
+            <span class="reserve-label">Grains &amp; cereals</span>
+            <div class="reserve-bar-wrap"><div class="reserve-bar bar-green" style="width:80%"></div></div>
+            <span class="reserve-days days-green">47d</span>
+          </div>
+          <div class="reserve-row">
+            <span class="reserve-label">Dairy products</span>
+            <div class="reserve-bar-wrap"><div class="reserve-bar bar-amber" style="width:52%"></div></div>
+            <span class="reserve-days days-amber">31d</span>
+          </div>
+          <div class="reserve-row">
+            <span class="reserve-label">Protein &amp; meat ⚠</span>
+            <div class="reserve-bar-wrap"><div class="reserve-bar bar-red" style="width:24%"></div></div>
+            <span class="reserve-days days-red">18d</span>
+          </div>
+          <div class="reserve-row">
+            <span class="reserve-label">Fresh produce</span>
+            <div class="reserve-bar-wrap"><div class="reserve-bar bar-amber" style="width:38%"></div></div>
+            <span class="reserve-days days-amber">24d</span>
+          </div>
+          <div class="reserve-row">
+            <span class="reserve-label">Sugar &amp; edible oils</span>
+            <div class="reserve-bar-wrap"><div class="reserve-bar bar-green" style="width:88%"></div></div>
+            <span class="reserve-days days-green">52d</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:1.2rem;flex-wrap:wrap;">
+            <span style="font-size:0.65rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span>Safe (30+ days)</span>
+            <span style="font-size:0.65rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;"></span>Watch (20–30 days)</span>
+            <span style="font-size:0.65rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block;"></span>Alert (&lt;20 days)</span>
+          </div>
+        </div>
+        <div>
+          <div class="mockup-card" style="margin-bottom:1rem;">
+            <div class="mockup-card-title">Active alerts</div>
+            <div class="alert-card red">
+              <strong>Protein reserve critical</strong>
+              <span>18 days · 3 shipments delayed</span>
+            </div>
+            <div class="alert-card amber">
+              <strong>Dairy approaching threshold</strong>
+              <span>31 days · trending down</span>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-title">Top importers — by active shipments</div>
+            <table style="width:100%;border-collapse:collapse;">
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="font-size:0.75rem;color:var(--text);padding:0.5rem 0;">Al Meera</td>
+                <td style="font-size:0.75rem;color:var(--text-muted);text-align:right;padding:0.5rem 0;">11 ships</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="font-size:0.75rem;color:var(--text);padding:0.5rem 0;">Gulf Trading</td>
+                <td style="font-size:0.75rem;color:var(--text-muted);text-align:right;padding:0.5rem 0;">9 ships</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="font-size:0.75rem;color:var(--text);padding:0.5rem 0;">Widam Food</td>
+                <td style="font-size:0.75rem;color:var(--text-muted);text-align:right;padding:0.5rem 0;">7 ships</td>
+              </tr>
+              <tr>
+                <td style="font-size:0.75rem;color:var(--text);padding:0.5rem 0;">LuLu Hypermarket</td>
+                <td style="font-size:0.75rem;color:var(--text-muted);text-align:right;padding:0.5rem 0;">6 ships</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGE -->
+<section class="advantage" id="advantage">
+  <p class="section-eyebrow">Competitive Advantage</p>
+  <h2 class="section-title">No one has built this for the GCC. <em>Yet.</em></h2>
+  <p class="section-body">Global platforms exist. None were built for Qatar's regulatory context, Arabic-speaking operators, or sovereign food security mandates.</p>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <div class="adv-dot"></div>
+      <h4>GCC Focus</h4>
+      <p>Purpose-built for Qatar and GCC market dynamics, not adapted from a Western logistics tool.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-dot"></div>
+      <h4>Government-ready</h4>
+      <p>Designed for MOCI workflows, policy reporting, and sovereign food security mandates from day one.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-dot"></div>
+      <h4>Arabic-first UI</h4>
+      <p>Full RTL Arabic interface, not a translated afterthought. Bilingual from the ground up.</p>
+    </div>
+    <div class="adv-card">
+      <div class="adv-dot"></div>
+      <h4>Reserve management</h4>
+      <p>Days-of-cover tracking, threshold alerts, and category-level visibility built in, not bolted on.</p>
+    </div>
+    <div class="adv-card dim">
+      <div class="adv-dot"></div>
+      <h4>FourKites</h4>
+      <p>Global leader. No Arabic UI, no reserve module, no GCC government integration.</p>
+    </div>
+    <div class="adv-card dim">
+      <div class="adv-dot"></div>
+      <h4>project44</h4>
+      <p>Enterprise platform. Built for North America and Europe — not the Gulf.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="whynow" id="why">
+  <p class="section-eyebrow">Why Now</p>
+  <h2 class="section-title">Three forces converge in <em>2026.</em></h2>
+  <p class="section-body">The political will, the technical infrastructure, and the institutional appetite are all present simultaneously for the first time.</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <p class="timeline-year">2017 — The Trigger</p>
+      <h4>The blockade exposed the gap</h4>
+      <p>Qatar's food import dependency became a cabinet-level national security crisis overnight. The political mandate to solve this has never been stronger.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2024–25 — The Infrastructure</p>
+      <h4>Shipping APIs became freely available</h4>
+      <p>Maersk, MSC, and CMA CGM now offer open developer APIs. Real-time vessel tracking is technically feasible without proprietary hardware.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2026 — The Moment</p>
+      <h4>TASMU created the appetite</h4>
+      <p>Qatar's national data platform built institutional comfort with digital food security tools — but left the upstream import visibility layer empty. Mawzara fills it and integrates directly with TASMU.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <p class="section-eyebrow">Get Early Access</p>
+  <h2 class="section-title">Built for Qatar.<br><em>Ready for the GCC.</em></h2>
+  <p class="section-body">Currently in prototype phase with MOCI pilot conversations underway. Request a demo or reach out directly.</p>
+  <div class="cta-form">
+    <input type="email" placeholder="your@email.com" />
+    <button type="button">Request Demo</button>
+  </div>
+  <p class="cta-note">For government or partnership enquiries — <a href="mailto:hello@mawzara.qa">hello@mawzara.qa</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Mawzara <span>مَوزَرة</span></div>
+    <div class="footer-tagline">Real-time food security intelligence · Qatar &amp; GCC</div>
+  </div>
+  <div class="footer-right">
+    <p>Doha, Qatar · 2026</p>
+    <p>Aligned with <a href="#">QNV 2030</a> &amp; NDS1-3</p>
+  </div>
+</footer>
+
+</body>
+</html>
